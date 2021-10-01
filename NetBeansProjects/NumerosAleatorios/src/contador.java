@@ -31,12 +31,14 @@ public class contador extends javax.swing.JFrame {
         spiner2 = new javax.swing.JSpinner();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        numGenerado = new javax.swing.JTextField();
         btnGenerar = new javax.swing.JButton();
+        checkboxPrimo = new javax.swing.JCheckBox();
+        numGenerado = new javax.swing.JTextField();
         jMenuBar1 = new javax.swing.JMenuBar();
         menuFichero = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItemSalir = new javax.swing.JMenuItem();
         menuEdicion = new javax.swing.JMenu();
+        jMenuItemBorrar = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(114748364, 2147483647));
@@ -44,19 +46,14 @@ public class contador extends javax.swing.JFrame {
 
         jLabel1.setText("Generador de numeros aleatorios en el rango indicado");
 
-        spiner1.setModel(new javax.swing.SpinnerNumberModel());
+        spiner1.setModel(new javax.swing.SpinnerNumberModel(0, 0, 100, 1));
+        spiner1.setRequestFocusEnabled(false);
 
-        spiner2.setModel(new javax.swing.SpinnerNumberModel());
+        spiner2.setModel(new javax.swing.SpinnerNumberModel(0, 0, 100, 1));
 
         jLabel2.setText("Numero 1");
 
         jLabel3.setText("Numero 2");
-
-        numGenerado.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                numGeneradoActionPerformed(evt);
-            }
-        });
 
         btnGenerar.setText("Generar");
         btnGenerar.addActionListener(new java.awt.event.ActionListener() {
@@ -65,19 +62,36 @@ public class contador extends javax.swing.JFrame {
             }
         });
 
-        menuFichero.setText("Fichero");
-
-        jMenuItem1.setText("exit");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        checkboxPrimo.setText("NºPrimo");
+        checkboxPrimo.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        checkboxPrimo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                checkboxPrimoActionPerformed(evt);
             }
         });
-        menuFichero.add(jMenuItem1);
+
+        menuFichero.setText("Fichero");
+
+        jMenuItemSalir.setText("exit");
+        jMenuItemSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemSalirActionPerformed(evt);
+            }
+        });
+        menuFichero.add(jMenuItemSalir);
 
         jMenuBar1.add(menuFichero);
 
         menuEdicion.setText("Edicion");
+
+        jMenuItemBorrar.setText("Borrar");
+        jMenuItemBorrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemBorrarActionPerformed(evt);
+            }
+        });
+        menuEdicion.add(jMenuItemBorrar);
+
         jMenuBar1.add(menuEdicion);
 
         setJMenuBar(jMenuBar1);
@@ -94,21 +108,24 @@ public class contador extends javax.swing.JFrame {
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel2))
-                        .addGap(53, 53, 53)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(spiner2, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(spiner1, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(numGenerado, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel2))
+                                .addGap(53, 53, 53)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(spiner2, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(spiner1, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(82, 82, 82))))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(102, 102, 102)
-                        .addComponent(numGenerado, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(118, 118, 118)
+                        .addComponent(btnGenerar))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(119, 119, 119)
-                        .addComponent(btnGenerar)))
+                        .addGap(116, 116, 116)
+                        .addComponent(checkboxPrimo)))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -124,11 +141,13 @@ public class contador extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(spiner2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
-                .addGap(18, 18, 18)
+                .addGap(15, 15, 15)
+                .addComponent(checkboxPrimo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(numGenerado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(12, 12, 12)
                 .addComponent(btnGenerar)
-                .addContainerGap(76, Short.MAX_VALUE))
+                .addContainerGap(49, Short.MAX_VALUE))
         );
 
         pack();
@@ -139,30 +158,50 @@ public class contador extends javax.swing.JFrame {
        int num1 = (int)spiner1.getValue();
        int num2 = (int)spiner2.getValue();
        
-       int num_generado = generaNumAleatorio(num1, num2);
        
+       int num_generado = Metodos.generaNumAleatorio(num1, num2);
+     
+       
+       
+       if (checkboxPrimo.isSelected()==true){
+           boolean isPrimo = Metodos.esPrimo(num_generado);
+           if(!isPrimo)
+              numGenerado.;
+              
+                
+               
+           while(isPrimo)
+                
        numGenerado.setText(num_generado+ "");
+       }
+       
        
        
         // TODO add your handling code here:
     }//GEN-LAST:event_btnGenerarActionPerformed
 
-    private void numGeneradoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_numGeneradoActionPerformed
-
-    // TODO add your handling code here:
-    }//GEN-LAST:event_numGeneradoActionPerformed
-
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    private void jMenuItemSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemSalirActionPerformed
 
         System.exit(0);
 
         // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    }//GEN-LAST:event_jMenuItemSalirActionPerformed
 
-    public static int generaNumAleatorio(int minimo, int maximo){
-            int num=(int)Math.floor(Math.random()*(maximo-minimo+1)+(minimo));
-       return num;
-    }
+    private void checkboxPrimoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkboxPrimoActionPerformed
+        // TODO add your handling code here:
+        checkboxPrimo.setSelected(true);
+        
+    }//GEN-LAST:event_checkboxPrimoActionPerformed
+
+    private void jMenuItemBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemBorrarActionPerformed
+        // TODO add your handling code here:
+        numGenerado.setText("");
+        spiner1.setValue(0);
+        spiner2.setValue(0);
+        
+    }//GEN-LAST:event_jMenuItemBorrarActionPerformed
+
+   
     
     
     
@@ -203,11 +242,13 @@ public class contador extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnGenerar;
+    private javax.swing.JCheckBox checkboxPrimo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItemBorrar;
+    private javax.swing.JMenuItem jMenuItemSalir;
     private javax.swing.JMenu menuEdicion;
     private javax.swing.JMenu menuFichero;
     private javax.swing.JTextField numGenerado;
