@@ -12,6 +12,10 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import java.util.Arrays;
 import java.util.Scanner;
 
 /**
@@ -60,16 +64,30 @@ public class ActividadFichero {
                     crearFich();
                     break;
                     
-                /*case 3:
+                case 3:
                     System.out.println(" INFORMACIÓN DEL FICHERO...");
                     infoFichero();
                     break;
                     
                 case 4: 
-                    System.out.println("actividadfichero.ActividadFichero.main()");
+                    System.out.println("Lista de ficheros en el directorio");
                     listaDir();
                     break;
-               */     
+                
+                case 5: 
+                    System.out.println("Copiar Fichero");
+                    copiarFich();
+                    break;
+                
+                case 6: 
+                    System.out.println("Mover Fichero");
+                    //();
+                    break;
+                    
+                case 7: 
+                    System.out.println("Borrar Directorio");
+                    borrarDir(getDirPath(dirPath()));
+                    break;    
                     
             }
                System.out.println("\n");
@@ -154,7 +172,7 @@ public class ActividadFichero {
         System.out.println("\n");
         return fich;    
     }
-    public static void infFichero() throws FileNotFoundException{
+    public static void infoFichero() throws FileNotFoundException{
         File dir = crearDir();
         File fich = crearFich();
         System.out.println("Informacion del Fichero en curso...");
@@ -164,9 +182,150 @@ public class ActividadFichero {
        System.out.println("\n");    
     }
     
+    public static void listaDir(){
+        System.out.println("Listado de de Ficheros en el Directorio");
+        System.out.println(Arrays.toString(crearDir().listFiles()));
+        System.out.println("\n");   
+    }
+    
+    public static void copiarFich() throws IOException{
+        System.out.println("Directorio de origen");
+        //File dir = new File("C:\\Users\\dam2\\Desktop\\" + setNomDir());
+        System.out.println("Directorio de destino");
+        //File dire = new File("C:\\Users\\dam2\\Desktop\\" + setNomDir());
+        //File fich = new File(dir, setNomFich() + ".txt");
+        System.out.println("Copiando el fichero " + crearFich().getName() + " al nuevo directorio");
+        File origen = new File(crearDir(), crearFich().getName());
+        File destino = new File(crearDir(), crearFich().getName());
+    
+        try{
+            Files.copy(Paths.get(origen.getAbsolutePath()), Paths.get(destino.getAbsolutePath()), StandardCopyOption.REPLACE_EXISTING);
+            System.out.println("Se ha copiado el fichero!!!");
+        }catch(IOException ex){
+            System.out.println("Error!" + ex.getMessage());
+        }
+        System.out.println("\n");
+    }
+    
+    public static void borrarDir(String paths){
+    
+    if (crearDir().listFiles().length == 0) {
+    crearDir().delete();
+        System.out.println("El directorio se ha borrado");
+    }else {
+    File borrarFich[] = crearDir().listFiles();
+    int i = crearDir().listFiles().length;
+    for (int j = 0; j < 1; j++){
+        if(borrarFich[j].isDirectory()){
+        borrarDir(borrarFich[j].getAbsolutePath());
+        }
+        borrarFich[j].delete();
+    }
+    }
+        System.out.println("\n");
+    
+    }
+    
+    public static void leerFich(){
+        
+        System.out.println("Contenido del Fichero!");
+        Scanner n = null;
+        try{ 
+            n = new Scanner(crearFich());
+                while(n.hasNextLine()){
+                    String linea = n.nextLine();
+                    System.out.println("linea");
+                }
+        }catch (IOException ex) {
+            System.out.println("Error!" + ex.getMessage());
+        }finally {
+        try{ 
+            if (n != null) {
+            n.close();
+        }
+        }catch (Exception ex){
+                System.out.println("Errors!" + ex.getMessage());
+                }
+    }
+        System.out.println("\n");
+    }
+    
+    public static void leerFichBR() {
+    File fich = new File(setDir(), setNomDir() + ".txt");
+        System.out.println("Contenido del fichero!");
+        FileReader fr = null;
+        BufferedReader br = null;
+        
+        try{
+            fr = new FileReader(fich);
+            br = new BufferedReader(fr);
+            
+            String line;
+            while ((line = br.readLine()) != null) {
+                System.out.println(line);
+            }
+        }catch (IOException ex) {
+            System.out.println("Error!" + ex.getMessage());
+        }finally {
+            try{
+                if (fr != null){
+                fr.close();
+                }
+            }catch (IOException ex) {
+                System.out.println("Errors" + ex.getMessage());
+            }
+        }
+        System.out.println("\n");
+    }
     
     
     
+    public static void escrituraFich() throws FileNotFoundException, IOException {
+    FileWriter fw = null;
+    try{
+        fw = new FileWriter(crearFich());
+        Scanner teclado = new Scanner(System.in);
+        System.out.println("Escriba el nombre:");
+        String letras = teclado.nextLine();
+        fw.write("Nombre: " + letras + "\n");
+        
+        Scanner teclado2 = new Scanner(System.in);
+        System.out.println("Escriba su edad:");
+        String letras2 = teclado2.nextLine();
+        fw.write("Edad: " + letras2);
+    }catch (IOException ex) {
+    System.out.println("Error!" + ex.getMessage());
+    }finally {
+        if (fw != null) {
+            fw.close();
+        }
+    }
+    }
+    
+    
+    
+     public static void escrituraFichBR() throws FileNotFoundException, IOException {
+    BufferedWriter bf = null;
+    try{
+        bf = new BufferedWriter(new FileWriter(crearFich()));
+        Scanner teclado = new Scanner(System.in);
+        System.out.println("Escriba el nombre:");
+        String letras = teclado.nextLine();
+        bf.write("Nombre: " + letras + "\n");
+        
+        Scanner teclado2 = new Scanner(System.in);
+        System.out.println("Escriba su edad:");
+        String letras2 = teclado2.nextLine();
+        bf.write("Edad: " + letras2);
+    }catch (IOException ex) {
+    System.out.println("Error!" + ex.getMessage());
+    }finally {
+        if (bf != null) {
+            bf.close();
+        }
+    }
+    }
+
 }
      /*   do {
  
