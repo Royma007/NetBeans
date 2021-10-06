@@ -12,22 +12,20 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.Scanner;
 
-/**
- *
- * @author dam2
- */
+
 public class ActividadFichero {
     
     
     public static void main(String[] args) throws IOException {
-        //    File directorio = new File("C:\\Users\\dam2\\Desktop\\Ficheros");
-         //   File fichero = new File("C:\\Users\\dam2\\Desktop\\Ficheros\\prueba.txt");
+       
         
     int opcion = -1;
     Scanner teclado = new Scanner(System.in);
@@ -81,14 +79,32 @@ public class ActividadFichero {
                 
                 case 6: 
                     System.out.println("Mover Fichero");
-                    //();
+                    moverFich();
                     break;
                     
                 case 7: 
                     System.out.println("Borrar Directorio");
                     borrarDir(getDirPath(dirPath()));
                     break;    
-                    
+                case 8: 
+                    System.out.println("Leer Fichero");
+                    leerFich();
+                    break;
+                case 9: 
+                    System.out.println("Leer Fichero con BufferedReader");
+                    leerFichBR();
+                    break;
+                case 10: 
+                    System.out.println("Escribir en Fichero");
+                    escrituraFich();
+                    break;    
+                case 11: 
+                    System.out.println("Ecribir en Fichero con BufferedReader");
+                    escrituraFichBR();
+                    break; 
+                case 0: 
+                    System.out.println("Salir");
+                    break;    
             }
                System.out.println("\n");
                
@@ -108,7 +124,7 @@ public class ActividadFichero {
         Scanner teclado = new Scanner(System.in);
         System.out.println("Escriba el nombre del directorio donde está el fichero");
         String t = teclado.nextLine();
-        return ("C:\\Users\\dam2\\Desktop\\" + t);
+        return ("C:\\Users\\royar\\Desktop\\" + t);
     }
     public static String getDirPath(File dir){
     String t = dir.getAbsolutePath();
@@ -123,7 +139,7 @@ public class ActividadFichero {
     }
     
     public static File dirPath(){
-      File dir = new File("C:\\Users\\dam2\\Desktop\\" + setNomDir());
+      File dir = new File("C:\\Users\\royar\\Desktop\\" + setNomDir());
       if(!dir.exists()){
           if(dir.mkdirs()){
               System.out.println("El Directorio se ha creado!");
@@ -140,7 +156,7 @@ public class ActividadFichero {
     
     
     public static File crearDir(){
-      File dir = new File("C:\\Users\\dam2\\Desktop\\" + setNomDir());
+      File dir = new File("C:\\Users\\royar\\Desktop\\" + setNomDir());
       if(!dir.exists()){
           if(dir.mkdirs()){
               System.out.println("El Directorio se ha creado!");
@@ -154,7 +170,7 @@ public class ActividadFichero {
     
     public static File crearFich() throws FileNotFoundException{
         
-        File dir = new File("C:\\Users\\dam2\\Desktop\\" + setNomDir());
+        File dir = new File("C:\\Users\\royar\\Desktop\\" + setNomDir());
         File fich = new File(dir, setNomFich() + ".txt");
         
         try {
@@ -190,10 +206,10 @@ public class ActividadFichero {
     
     public static void copiarFich() throws IOException{
         System.out.println("Directorio de origen");
-        //File dir = new File("C:\\Users\\dam2\\Desktop\\" + setNomDir());
+        File dir = new File("C:\\Users\\royar\\Desktop\\" + setNomDir());
         System.out.println("Directorio de destino");
-        //File dire = new File("C:\\Users\\dam2\\Desktop\\" + setNomDir());
-        //File fich = new File(dir, setNomFich() + ".txt");
+        File dire = new File("C:\\Users\\royar\\Desktop\\" + setNomDir());
+        File fich = new File(dir, setNomFich() + ".txt");
         System.out.println("Copiando el fichero " + crearFich().getName() + " al nuevo directorio");
         File origen = new File(crearDir(), crearFich().getName());
         File destino = new File(crearDir(), crearFich().getName());
@@ -206,6 +222,27 @@ public class ActividadFichero {
         }
         System.out.println("\n");
     }
+    
+    public static void moverFich() throws FileNotFoundException{
+        System.out.println("Directorio de origen");
+        File dir = new File("C:\\Users\\royar\\Desktop\\" + setNomDir());
+        System.out.println("Directorio de destino");
+        File dire = new File("C:\\Users\\royar\\Desktop\\" + setNomDir());
+        File fich = new File(dir, setNomFich() + ".txt");
+        System.out.println("Moviendo el fichero " + crearFich().getName() + " al nuevo directorio");
+        File origen = new File(crearDir(), crearFich().getName());
+        File destino = new File(crearDir(), crearFich().getName());
+    
+        try{
+            Files.move(Paths.get(origen.getAbsolutePath()), Paths.get(destino.getAbsolutePath()), StandardCopyOption.REPLACE_EXISTING);
+            System.out.println("Se ha movido el fichero!!!");
+        }catch(IOException ex){
+            System.out.println("Error!" + ex.getMessage());
+        }
+        System.out.println("\n");
+    }
+    
+    
     
     public static void borrarDir(String paths){
     
@@ -327,74 +364,4 @@ public class ActividadFichero {
     }
 
 }
-     /*   do {
- 
-            System.out.println("1-.Crear Fichero");
-            System.out.println("2-.Mostrar Fichero");
-            System.out.println("3-.Salir");
- 
-            opcion = teclado.nextInt();
-            switch (opcion) {
-                case 1: {
-                    crearFichero();
-                    break;
-                }
-                case 2: {
-                    mostrarFichero();
-                    break;
-                }
-                case 3: {
-                    System.out.println("Gracias por usar el programa");
-                }
-                default: {
-                    System.out.println("Opcion incorrecta");
-                }
- 
-            }
-        } while (opcion != 3);
-    } 
-    
-    
-    public static void crearFichero() throws IOException{
-        String ruta = "C:\\Users\\dam2\\Desktop\\Ficheros";
-        File archivo = new File(ruta);
-        BufferedWriter bw;
-        if(archivo.exists()) {
-        bw = new BufferedWriter(new FileWriter(archivo));
-        bw.write("El fichero de texto ya estaba creado.");
-    } else {
-        bw = new BufferedWriter(new FileWriter(archivo));
-        bw.write("Acabo de crear el fichero de texto.");
-    }
-    bw.close();
-    }
- 
-    public static void infoFichero() {
-        
-    }
-    
-    
-
-} 
-
- 
-    
-/*    public static void main(String args[]) {
- File fichero = new File("FicheroEjemplo.txt");
-
- if (fichero.exists()) {
- System.out.println("Nombre del archivo "+ fichero.getName());
- System.out.println("Ruta "+ fichero.getPath());
- System.out.println("Ruta absoluta "+ fichero.getAbsolutePath());
- System.out.println("Se puede escribir "+fichero.canRead());
- System.out.println("Se puede leer "+fichero.canWrite());
- System.out.println("Tamaño "+fichero.length());
- }
-
- fichero.close();
-}
-    /**
-     * @param args the command line arguments
-     */
-    
-    
+     

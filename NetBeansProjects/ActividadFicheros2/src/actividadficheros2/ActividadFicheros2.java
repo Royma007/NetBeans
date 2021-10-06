@@ -24,9 +24,9 @@ public class ActividadFicheros2 {
      */
     public static void main(String[] args) throws IOException {
         // TODO code application logic here
-        File fichero = new File("C:\\Users\\dam2\\Desktop\\carta.txt");
+        File fichero = new File("C:\\Users\\royar\\Desktop\\carta.txt");
        leeTxt(fichero);
-       
+       contarPalabras(fichero);
     }
     
     
@@ -45,35 +45,28 @@ public class ActividadFicheros2 {
             for (int l = 0; l <charArray.length; l++) {
                 System.out.println(l+" ~ "+charArray[l]);
             }
-            System.out.println(charArray.length);
+            System.out.println("El numero total de letras son " + charArray.length);
+            
         }
         }catch (IOException ex) {
         ex.printStackTrace();
         }
     }
      public static void contarPalabras(File file){
-         String cadena;
-         
+         Scanner scan;
+         int contador = 0;
          try{
-             Scanner scan = new 
+             scan = new Scanner (file);
+             while(scan.hasNext()){
+                 contador++;}
+             
+         }catch(FileNotFoundException e){
+             e.printStackTrace();
          }
-       
+         System.out.println("El numero total de palabras son "+ contador);
     }
     
-      /*public void leerFich() {
-          FileReader fr = null;
-          BufferedReader br = null;
-          
-          try{
-          
-                while
-          }*/
-        
       }
 
 
         
-        
-    
-    
-
