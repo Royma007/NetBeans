@@ -115,8 +115,8 @@ public class login extends javax.swing.JFrame {
         String Pass = new String(jPass.getPassword());
         if(jUser.getText().equals(User) && Pass.equals(Password)){
             JOptionPane.showMessageDialog(null, "Bienvenido");
-            inicio ini = new inicio();
-            ini.setVisible(true);
+            inicio inicio = new inicio(User);
+            inicio.setVisible(true);
             this.dispose();
         }else{
             JOptionPane.showMessageDialog(null, "Vuelva a intentarlo");
